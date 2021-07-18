@@ -5,3 +5,4 @@
 - [x] <a href="./D_Two-chips">D. Две фишки</a>
 - [x] <a href="./E_Two-chips-2">E. Две фишки - 2</a>
 
+https://contest.yandex.ru/contest/26365/
