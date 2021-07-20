@@ -1,10 +1,26 @@
-<h1>D. Две фишки</h1>
+<h1 align="center">D. Две фишки</h1>
 
-<table>
+<h5 align="center">
+<a href="#limits">Ограничения</a>
+•
+<a href="#task">Условие задачи</a>
+•
+<a href="#input">Формат ввода</a>
+•
+<a href="#output">Формат вывода</a>
+•
+<a href="#examples">Примеры</a>
+•
+<a href="#solution">Решение</a>
+</h5>
+
+<br>
+
+<table id="limits">
 <tbody>
 <tr>
 <td>
-Ограничение времени
+<b>Ограничение времени</b>
 </td>
 <td>
 4 секунды
@@ -12,7 +28,7 @@
 </tr>
 <tr>
 <td>
-Ограничение памяти
+<b>Ограничение памяти</b>
 </td>
 <td>
 256Mb
@@ -20,7 +36,7 @@
 </tr>
 <tr>
 <td>
-Ввод
+<b>Ввод</b>
 </td>
 <td>
 стандартный ввод или input.txt
@@ -28,7 +44,7 @@
 </tr>
 <tr>
 <td>
-Вывод
+<b>Вывод</b>
 </td>
 <td>
 стандартный вывод или output.txt
@@ -37,74 +53,127 @@
 </tbody>
 </table>
 
-### Условие задачи
+<h2 id="task">Условие задачи</h2>
+
 Рита и Гоша играют в игру. У Риты есть <i>n</i> фишек, на каждой из которых написано количество очков. Сначала Гоша называет число <i>k</i>, затем Рита должна выбрать две фишки, сумма очков на которых равна заданному числу.
 
 Рите надоело искать фишки самой, и она решила применить свои навыки программирования для решения этой задачи. Помогите ей написать программу для поиска нужных фишек.
 
-### Формат ввода
+<h2 id="input">Формат ввода</h2>
+
 В первой строке записано количество фишек <i>n</i>, <i>2 ≤ n ≤ 10<sup>4</sup></i>.
 
 Во второй строке записано <i>n</i> целых чисел —– очки на фишках Риты в диапазоне от <i>-10<sup>5</sup></i> до <i>10<sup>5</sup></i>.
 
 В третьей строке —– загаданное Гошей целое число <i>k</i>, <i>-10<sup>5</sup> ≤ k ≤ 10<sup>5</sup></i>.
 
-### Формат вывода
+<h2 id="output">Формат вывода</h2>
+
 Нужно вывести два числа —– очки на двух фишках, в сумме дающие <i>k</i>.
 
 Если таких пар несколько, то можно вывести любую из них.
 
 Если таких пар не существует, то вывести «None».
 
+<h2 id="examples">Примеры</h2>
 
-<h3>Пример 1</h3>
-<table>
-<thead>
-<tr>
-<th>Ввод</th>
-<th>Вывод</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
+<h4>Пример 1</h4>
+<ul>
+<h6>Ввод</h6>
 <pre>
 6
 -1 -1 -9 -7 3 -6
 2
 </pre>
-</td>
-<td>
+
+<h6>Вывод</h6>
 <pre>
 -1 3
 </pre>
-</td>
-</tr>
-</tbody>
-</table>
+</ul>
 
-<h3>Пример 2</h3>
-<table>
-<thead>
-<tr>
-<th>Ввод</th>
-<th>Вывод</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
+<hr>
+
+<h4>Пример 2</h4>
+<ul>
+<h6>Ввод</h6>
 <pre>
 8
 6 2 8 -3 1 1 6 10
 100
 </pre>
-</td>
-<td>
+
+<h6>Вывод</h6>
 <pre>
 None
 </pre>
-</td>
+</ul>
+
+<h2 id="solution">Решение</h2>
+
+```javascript
+const _readline = require('readline');
+const DEC = 10;
+
+const _io_interface = _readline.createInterface({
+  input: process.stdin
+});
+
+let _curLine = 0;
+const _inputLines = [];
+
+_io_interface.on('line', (line) => {
+  _inputLines.push(line);
+  if (_inputLines.length === 3) {
+    _io_interface.close();
+  }
+})
+
+_io_interface.on('close', () => {
+  process.stdout.write(solve());
+});
+
+function twoChips(numberOfChips, chipScores, requiredAmount) {
+  for (let i = 0; i < numberOfChips; i++) {
+    for (let j = i + 1; j < numberOfChips; j++) {
+      if (chipScores[i] + chipScores[j] === requiredAmount)
+        return [chipScores[i], chipScores[j]].join(' ');
+    }
+  }
+  return 'None';
+}
+
+function solve() {
+  const numberOfChips = readInt();
+  const chipScores = readArrayOfNums();
+  const requiredAmount = readInt();
+
+  return twoChips(numberOfChips, chipScores, requiredAmount);
+}
+
+function readInt() {
+  return parseInt(_inputLines[_curLine++], DEC);
+}
+
+function readArrayOfNums() {
+  return _inputLines[_curLine++].trim().split(' ').map(num => parseInt(num, DEC));
+}
+```
+<table>
+  <thead>
+    <tr>
+      <th>Вердикт</th>
+      <th>Компилятор</th>
+      <th>Время</th>
+      <th>Память</th>
+    </tr>
+  </thead>
+  <tbody>
+<tr align="center">
+<td>OK</td>
+<td>Node.js 14.15.5</td>
+<td>92ms</td>
+<td>6.66Mb</td>
 </tr>
-</tbody>
+  </tbody>
 </table>
