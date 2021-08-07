@@ -200,8 +200,8 @@ function readInt(line) {
     <tr align="center">
       <td>OK</td>
       <td>Node.js 14.15.5</td>
-      <td>0.697s</td>
-      <td>130.88Mb</td>
+      <td>129ms</td>
+      <td>6.26Mb</td>
     </tr>
   </tbody>
 </table>
